@@ -2,51 +2,59 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
-  <title>Clinique Abernathy</title>
-  <link rel="stylesheet"  href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
+<meta charset="utf-8" />
+<title>Clinique Abernathy</title>
+<link rel="stylesheet"
+	href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
 
 </head>
 
 <body>
 
-<div class="container">
+	<div class="container">
+		<h1>Clinique Abernathy</h1>
+		<div class="row">
+			<h2>Liste des Patients</h2>
+		</div>
+		<div class="row">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Nom</th>
+						<th>Prenom</th>
+						<th>Date de Naissance</th>
+						<th>Genre</th>
+						<th>Adresse</th>
+						<th>Numero de téléphone</th>
+						<th>Edit</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="patient : ${patients}">
+						<td th:text="${patient.nom}"></td>
+						<td th:text="${patient.prenom}"></td>
+						<td th:text="${patient.dateNaissance}"></td>
+						<td th:text="${patient.genre}"></td>
+						<td th:text="${patient.adresse}"></td>
+						<td th:text="${patient.numeroTelephone}"></td>
+						<td><a
+							th:href="@{/updatePatient/{id}(id=${patient.idPatient})}">Edit</a></td>
+						<!-- <td><a th:href="@{/delete/{id}(id=${user.id})}">Delete</a></td> -->
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- 	<p>
+		<a href="/addPatient">Ajouter un nouveau patient</a>
+	</p> -->
+		<div class="row">
+			<div class="col-6"></div>
+			<div class="col-6 text-left">
+				<a href="/addPatient">Ajouter un nouveau patient</a>
+			</div>
+		</div>
 
-
-
-  <h1>Application Clinique Abernathy</h1>
-
-
-
-  			<div th:switch="${patients}">
-    <h2 th:case="null">Pas encore de patients!</h2>
-        <div th:case="*">
-            <h2>Patients</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Prenom</th>
-                        <th>Adresse</th>
-<!--                         <th>Edit</th>
-                        <th>Delete</th> -->
-                    </tr>
-                </thead>
-                <tbody>
-                <tr th:each="patient : ${patients}">
-                    <td th:text="${patient.nom}"></td>
-                    <td th:text="${patient.prenom}"></td>
-                    <td th:text="${patient.adresse}"></td>
-                    <!-- <td><a th:href="@{/edit/{id}(id=${user.id})}">Edit</a></td>
-                    <td><a th:href="@{/delete/{id}(id=${user.id})}">Delete</a></td> -->
-                </tr>
-            </tbody>
-        </table>
-    </div>      
-<!--     <p><a href="/signup">Add a new user</a></p> -->
-</div>
-
-
+	</div>
 </body>
 
-</html> 
+</html>

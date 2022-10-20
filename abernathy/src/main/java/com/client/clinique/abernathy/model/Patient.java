@@ -14,6 +14,7 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "patient")
@@ -34,6 +35,7 @@ public class Patient {
 
 	@Column(name = "dateNaissance")
 	@Past
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dateNaissance;
 
 	@Column(name = "genre")

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
+<meta charset="utf-8" />
+<title>Modifier un patient</title>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<h2>Modifier un patient</h2>
+		</div>
+
+		<div class="row">
+			<form action="#"
+				th:action="@{/updatePatient/{id}(id=${patient.idPatient})}"
+				th:object="${patient}" method="post" class="form-horizontal"
+				style="width: 100%">
+				<div class="form-group">
+					<label for="nom">Nom</label> <input type="text" th:field="*{nom}"
+						id="nom" placeholder="Nom"> <span
+						th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span>
+				</div>
+				<div class="form-group">
+					<label for="prenom">Prenom</label> <input type="text"
+						th:field="*{prenom}" id="prenom" placeholder="Prenom"> <span
+						th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}"></span>
+				</div>
+				<div class="form-group">
+					<label for="dateNaissance">Date de Naissance</label> <input
+						type="date" th:field="*{dateNaissance}" id="dateNaissance">
+					<span th:if="${#fields.hasErrors('dateNaissance')}"
+						th:errors="*{dateNaissance}"></span>
+				</div>
+				<div class="form-group">
+					<label for="genre">Genre</label> <input type="text"
+						th:field="*{genre}" id="genre" placeholder="Genre"> <span
+						th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}"></span>
+				</div>
+				<div class="form-group">
+					<label for="adresse">Adresse</label> <input type="text"
+						th:field="*{adresse}" id="adresse" placeholder="Adresse">
+					<span th:if="${#fields.hasErrors('adresse')}"
+						th:errors="*{adresse}"></span>
+				</div>
+				<div class="form-group">
+					<label for="numeroTelephone">Numero Telephone</label> <input
+						type="text" th:field="*{numeroTelephone}" id="numeroTelephone"
+						placeholder="Numero de telephone"> <span
+						th:if="${#fields.hasErrors('NumeroTelephone')}"
+						th:errors="*{numeroTelephone}"></span>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-12">
+						<a class="btn btn-danger btn-sm" href="/patients">Cancel</a> <input
+							class="btn btn-primary btn-sm" type="submit"
+							value="Modifier Patient">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

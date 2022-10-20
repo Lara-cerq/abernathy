@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,16 +32,12 @@ import com.client.clinique.abernathy.proxies.MicroservicePatientProxy;
 import com.client.clinique.abernathy.repository.PatientRepository;
 import com.client.clinique.abernathy.service.PatientService;
 
-@RestController
+@Controller
 public class PatientController {
 
-	@Autowired
-	PatientRepository patientRepository;
+	PatientService patientService;
 
-	public PatientController(PatientRepository patientRepository) {
-		super();
-		this.patientRepository = patientRepository;
-	}
+	PatientRepository patientRepository;
 
 //	private MicroservicePatientProxy patientsProxy;
 
@@ -48,61 +45,57 @@ public class PatientController {
 //		this.patientsProxy = patientsProxy;
 //	}
 
-	public PatientController() {
-		super();
-		// TODO Auto-generated constructor stub
+	public PatientController(PatientService patientService) {
+		this.patientService = patientService;
 	}
-
-//	public static List<Patient> patients = new ArrayList<>();
-//
-//	static {
-//		patients.add(new Patient(1, "Cerqueira", "Lara", new Date(), "F", "15 Rue Verdi", "0617348488"));
-//		patients.add(new Patient(1, "Cerqueira", "Lara", new Date(), "F", "15 Rue Verdi", "0617348488"));
-//	}
-
-//	   static {
-//		   patients.add(new Patient(1, "Cerqueira", "Lara", new Date(), "F", "15 Rue Verdi", "0617348488"));
-//		   patients.add(new Patient(1, "Cerqueira", "Lara", new Date(), "F", "15 Rue Verdi", "0617348488"));
-//	   }
 
 	@GetMapping(value = "/patients")
 	public String listePatients(Model model) {
-		List<Patient> patients = patientRepository.findAll();
-//		List<PatientBean> patients = patientsProxy.listeDesPatients();
-		model.addAttribute("patients", patients);
+		List<Patient> patients = patientService.getAllPatients();
 		if (patients.equals(null))
 			throw new ListPatientsNonTrouvableException(
 					"La liste de patients ne peut pas etre affichée car elle ne contient aucun patient.");
+		model.addAttribute("patients", patients);
 		return "patients";
 	}
 
-	@GetMapping(value = "/patients/{id}")
-	public Patient afficherUnPatient(@PathVariable int id) {
-		return patientRepository.findById(id);
+	@GetMapping("/addPatient")
+	public String showAjoutForm(Patient patient) {
+		return "addPatient";
 	}
 
-	@PostMapping(value = "/patients")
-	public ResponseEntity<Patient> ajouterPatient(@Valid @RequestBody Patient patient)
-			throws ImpossibleAjouterPatientException {
-		Patient patientAdded = patientRepository.save(patient);
-		if (patientAdded == null)
-			throw new ImpossibleAjouterPatientException("Impossible d'ajouter ce patient");
-		return new ResponseEntity<Patient>(patient, HttpStatus.CREATED);
+	@PostMapping("/addPatient")
+	public String addPatient(@Valid Patient patient, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			return "addPatient";
+		}
+		patientService.addOrUpdatePatient(patient);
+		return "redirect:/patients";
 	}
 
-	@PutMapping(value = "/patients")
-	public ResponseEntity<Patient> updatePatient(@Valid @RequestBody Patient patient)
-			throws ImpossibleModifierPatientException {
-		Patient patientAdded = patientRepository.save(patient);
-		if (patientAdded == null)
-			throw new ImpossibleModifierPatientException("Impossible de modifier ce patient");
-		return new ResponseEntity<Patient>(patient, HttpStatus.CREATED);
+	@GetMapping("/updatePatient/{id}")
+	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+		Patient patient = patientService.getId(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid patient Id:" + id));
+		model.addAttribute("patient", patient);
+		return "updatePatient";
 	}
 
-	@DeleteMapping(value = "/patients/{id}")
-	public ResponseEntity<Void> supprimerPatient(@PathVariable int id) {
-		patientRepository.deleteById(id);
-		return new ResponseEntity<>(HttpStatus.OK);
+	@PostMapping("/updatePatient/{id}")
+	public String updateUser(@PathVariable("id") Integer id, @Valid Patient patient, BindingResult result,
+			Model model) {
+		if (result.hasErrors()) {
+			return "updatePatient";
+		}
+		patient.setIdPatient(id);
+		patientService.addOrUpdatePatient(patient);
+		return "redirect:/patients";
 	}
+
+//	@DeleteMapping(value = "/patients/{id}")
+//	public ResponseEntity<Void> supprimerPatient(@PathVariable int id) {
+//		patientService.deletePatient(id);
+//		return new ResponseEntity<>(HttpStatus.OK);
+//	}
 
 }
