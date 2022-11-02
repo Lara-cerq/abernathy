@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -40,14 +41,13 @@ public class Patient {
 
 	@Column(name = "genre")
 	@Length(max = 1)
+	@NotBlank
 	private String genre;
 
 	@Column(name = "adresse")
-	@NotBlank
 	private String adresse;
 
 	@Column(name = "numeroTelephone")
-	@Length(min = 10, max = 10)
 	private String numeroTelephone;
 
 	public Integer getIdPatient() {
@@ -113,7 +113,7 @@ public class Patient {
 
 	public Patient(Integer idPatient, @NotNull String nom, @NotNull String prenom, @Past Date dateNaissance,
 			@Length(max = 1) String genre, @NotNull String adresse,
-			@Length(min = 10, max = 10) String numeroTelephone) {
+			String numeroTelephone) {
 		super();
 		this.idPatient = idPatient;
 		this.nom = nom;
@@ -125,7 +125,7 @@ public class Patient {
 	}
 
 	public Patient(@NotNull String nom, @NotNull String prenom, @Past Date dateNaissance, @Length(max = 1) String genre,
-			@NotNull String adresse, @Length(min = 10, max = 10) String numeroTelephone) {
+			@NotNull String adresse, String numeroTelephone) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;

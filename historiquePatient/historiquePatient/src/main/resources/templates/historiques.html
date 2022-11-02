@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Clinique Abernathy</title>
+<link rel="stylesheet"
+	href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
+
+</head>
+
+<body>
+	<div class="container">
+		<div th:switch="${historiques}">
+			<h2 th:case="null">Pas encore d'informations disponibles!</h2>
+			<div th:case="*">
+				<div class="row">
+					<h2>Historique des patients</h2>
+				</div>
+				<div class="row">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Notes</th>
+								<th>Edit</th>
+								<!--                         <th>Delete</th> -->
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="historique : ${historiques}">
+								<td th:text="${historique.notes}"></td>
+								<td><a th:href="@{/addNote/{id}(id=${historique.id})}">Ajouter
+										une note</a></td>
+								<!--    <td><a th:href="@{/delete/{id}(id=${issue.id})}">Delete</a></td> -->
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<!--             <p><a href="/signup">Add a new issue</a></p> -->
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

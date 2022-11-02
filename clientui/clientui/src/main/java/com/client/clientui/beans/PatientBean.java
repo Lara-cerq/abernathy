@@ -1,4 +1,4 @@
-package com.client.clinique.abernathy.beans;
+package com.client.clientui.beans;
 
 import java.util.Date;
 

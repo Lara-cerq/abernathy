@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.client.clinique.abernathy.model.Patient;
@@ -20,7 +21,13 @@ public class PatientService {
 	}
 
 	public List<Patient> getAllPatients() {
-		return patientRepository.findAll();
+		List<Patient> patients = new ArrayList<>();
+		try {
+			patients = patientRepository.findAll();
+		} catch (DataAccessException e) {
+			System.out.println("La liste de patiensts est vide");
+		}
+		return patients;
 	}
 
 	public Patient findById(Integer id) {
@@ -28,15 +35,31 @@ public class PatientService {
 	}
 
 	public Optional<Patient> getId(Integer id) {
-		return patientRepository.findById(id);
+		Optional<Patient> patient = null;
+		try {
+			patient = patientRepository.findById(id);
+		} catch (DataAccessException e) {
+			System.out.println("Patient non trouvé!");
+		}
+		return patient;
 	}
 
 	public Patient addOrUpdatePatient(Patient patient) {
-		return patientRepository.save(patient);
+		Patient patientUpdated= new Patient();
+		try {
+			patientUpdated=patientRepository.save(patient);
+		} catch (DataAccessException e) {
+			System.out.println("Patient non modifié!");
+		}
+		return patientUpdated;
 	}
 
-//	public void deletePatient(Integer id) {
-//		patientRepository.deleteById(id);
-//	}
+	public void deletePatient(Integer id) {
+		try {
+			patientRepository.deleteById(id);
+		} catch (DataAccessException e) {
+			System.out.println("Patient non supprimé!");
+		}
+	}
 
 }
