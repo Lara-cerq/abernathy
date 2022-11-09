@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.data.domain.Example;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
@@ -18,6 +19,7 @@ import com.mongodb.client.MongoClient;
 
 @SpringBootApplication
 @EnableMongoRepositories(basePackageClasses = HistoriqueRepository.class)
+@EnableFeignClients
 public class HistoriquePatientApplication implements CommandLineRunner {
 	
 	private final Logger logger = LoggerFactory.getLogger(HistoriquePatientApplication.class);
@@ -35,9 +37,8 @@ public class HistoriquePatientApplication implements CommandLineRunner {
 //	@Override
 	public void run(String... args) throws Exception {
         HistoriquePatient historique= new HistoriquePatient();
-        List<String> notes= new ArrayList<>();
-        notes.add("Lara");
-        historique.setNotes(notes);
+        historique.setNote("Lara");
+        historique.setIdPatient(1);
 
         historiqueRepository.insert(historique);
         
@@ -50,15 +51,15 @@ public class HistoriquePatientApplication implements CommandLineRunner {
         historique = historiqueRepository.findOne(example).get();
 
         // Building a new name and updating the object Post
-        String newNote = historique.getNotes() + " [updated]";
-        List<String> newNotes= new ArrayList<>();
-        newNotes.add(newNote);
-        historique.setNotes(newNotes);
+        String newNote = historique.getNote() + " [updated]";
+        historique.setNote(newNote);
 
         // Saving this change in database
         historiqueRepository.save(historique);
         
         historiques.stream().forEach((historiqueNew) -> logger.info(historiqueNew.toString()));
+        
+//        historiqueRepository.deleteAll();
 
 	}
 

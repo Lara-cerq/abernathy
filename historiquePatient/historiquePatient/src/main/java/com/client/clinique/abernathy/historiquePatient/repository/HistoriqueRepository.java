@@ -7,5 +7,5 @@ import com.client.clinique.abernathy.historiquePatient.model.HistoriquePatient;
 
 @Repository
 public interface HistoriqueRepository extends MongoRepository<HistoriquePatient, String> {
-
+	HistoriquePatient findHistoriqueByIdPatient(Integer idPatient);
 }

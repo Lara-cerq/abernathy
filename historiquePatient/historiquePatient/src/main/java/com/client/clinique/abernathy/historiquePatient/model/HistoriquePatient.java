@@ -11,19 +11,9 @@ public class HistoriquePatient {
 	@Id
 	private String id;
 
-//	private Patient patient;
+	private Integer idPatient;
 
 	private String note;
-
-	private List<String> notes;
-
-//	public Patient getPatient() {
-//		return patient;
-//	}
-//
-//	public void setPatient(Patient patient) {
-//		this.patient = patient;
-//	}
 
 	public String getId() {
 		return id;
@@ -33,8 +23,12 @@ public class HistoriquePatient {
 		this.id = id;
 	}
 
-	public List<String> getNotes() {
-		return notes;
+	public Integer getIdPatient() {
+		return idPatient;
+	}
+
+	public void setIdPatient(Integer idPatient) {
+		this.idPatient = idPatient;
 	}
 
 	public String getNote() {
@@ -45,42 +39,32 @@ public class HistoriquePatient {
 		this.note = note;
 	}
 
-	public void setNotes(List<String> notes) {
-		this.notes = notes;
-	}
-
 	public HistoriquePatient() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public HistoriquePatient(String id, List<String> notes) {
-		super();
-		this.id = id;
-		this.notes = notes;
-	}
-
-	public HistoriquePatient(List<String> notes) {
-		super();
-		this.notes = notes;
-	}
-
-	public HistoriquePatient(String id, String note, List<String> notes) {
+	public HistoriquePatient(String id, String note) {
 		super();
 		this.id = id;
 		this.note = note;
-		this.notes = notes;
 	}
 
-	// @Override
+	public HistoriquePatient(Integer idPatient, String note) {
+		super();
+		this.idPatient = idPatient;
+		this.note = note;
+	}
+
+	public HistoriquePatient(String note) {
+		super();
+		this.note = note;
+	}
+
+//	@Override
 	public String toString() {
-		return "HistoriquePatient [id=" + id + ", notes=" + notes + "]";
+		return "HistoriquePatient [id=" + id + ", idPatient=" + idPatient + ", note=" + note + "]";
 	}
 
-//	public Historique(Patient patient, String notes) {
-//		super();
-//		this.patient = patient;
-//		this.notes = notes;
-//	}
 
 }

@@ -1,10 +1,6 @@
 package com.client.clinique.abernathy.controller;
 
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -16,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.client.clinique.abernathy.exceptions.ListPatientsNonTrouvableException;
 import com.client.clinique.abernathy.model.Patient;
@@ -38,6 +35,12 @@ public class PatientController {
 					"La liste de patients ne peut pas etre affichée car elle ne contient aucun patient.");
 		model.addAttribute("patients", patients);
 		return "patients";
+	}
+
+	@GetMapping(value = "/patient/{id}")
+	public Patient getPatientById(@PathVariable("id") Integer idPatient) {
+		Patient patient = patientService.getId(idPatient).get();
+		return patient;
 	}
 
 	@GetMapping("/addPatient")

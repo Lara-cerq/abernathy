@@ -21,22 +21,29 @@
 					<table class="table table-bordered">
 						<thead>
 							<tr>
+								<th>Id Patient</th>
 								<th>Notes</th>
+								<!-- 								<th>Nom Patient</th> -->
 								<th>Edit</th>
 								<!--                         <th>Delete</th> -->
 							</tr>
 						</thead>
 						<tbody>
 							<tr th:each="historique : ${historiques}">
-								<td th:text="${historique.notes}"></td>
-								<td><a th:href="@{/addNote/{id}(id=${historique.id})}">Ajouter
-										une note</a></td>
+								<td th:text="${historique.idPatient}"></td>
+								<td th:text="${historique.note}"></td>
+								<!-- 								<td th:text="${patient.nom}"></td> -->
+								<td><a
+									th:href="@{/updateHistorique/{id}(id=${historique.id})}">Mise
+										à jour de l'historique</a></td>
 								<!--    <td><a th:href="@{/delete/{id}(id=${issue.id})}">Delete</a></td> -->
 							</tr>
 						</tbody>
 					</table>
 				</div>
-				<!--             <p><a href="/signup">Add a new issue</a></p> -->
+				<p>
+					<a href="/addHistorique">Ajouter une nouvelle note</a>
+				</p>
 			</div>
 		</div>
 	</div>
