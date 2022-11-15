@@ -1,4 +1,4 @@
-package com.client.clinique.abernathy.historiquePatient;
+package com.client.clinique.abernathy.historique;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,39 +13,39 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.data.domain.Example;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import com.client.clinique.abernathy.historiquePatient.model.HistoriquePatient;
-import com.client.clinique.abernathy.historiquePatient.repository.HistoriqueRepository;
+import com.client.clinique.abernathy.historique.model.Historique;
+import com.client.clinique.abernathy.historique.repository.HistoriqueRepository;
 import com.mongodb.client.MongoClient;
 
 @SpringBootApplication
 @EnableMongoRepositories(basePackageClasses = HistoriqueRepository.class)
 @EnableFeignClients
-public class HistoriquePatientApplication implements CommandLineRunner {
+public class HistoriqueApplication implements CommandLineRunner {
 	
-	private final Logger logger = LoggerFactory.getLogger(HistoriquePatientApplication.class);
+	private final Logger logger = LoggerFactory.getLogger(HistoriqueApplication.class);
 
 	private HistoriqueRepository historiqueRepository;
 
-	public HistoriquePatientApplication(HistoriqueRepository historiqueRepository) {
+	public HistoriqueApplication(HistoriqueRepository historiqueRepository) {
 		this.historiqueRepository = historiqueRepository;
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(HistoriquePatientApplication.class, args);
+		SpringApplication.run(HistoriqueApplication.class, args);
 	}
 
 //	@Override
 	public void run(String... args) throws Exception {
-        HistoriquePatient historique= new HistoriquePatient();
+        Historique historique= new Historique();
         historique.setNote("Lara");
         historique.setIdPatient(1);
 
         historiqueRepository.insert(historique);
         
-        List<HistoriquePatient> historiques = historiqueRepository.findAll();
+        List<Historique> historiques = historiqueRepository.findAll();
 //        historiques.stream().forEach((historiqueNew) -> logger.info(historiqueNew.toString()));
         
-        Example<HistoriquePatient> example = Example.of(historique);
+        Example<Historique> example = Example.of(historique);
 
         // Getting the searched Post
         historique = historiqueRepository.findOne(example).get();

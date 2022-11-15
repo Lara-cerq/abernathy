@@ -2,23 +2,22 @@ package com.client.clinique.abernathy.controller;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.client.clinique.abernathy.exceptions.ListPatientsNonTrouvableException;
 import com.client.clinique.abernathy.model.Patient;
 import com.client.clinique.abernathy.service.PatientService;
 
-@Controller
+@RestController
 public class PatientController {
 
 	PatientService patientService;
@@ -28,54 +27,32 @@ public class PatientController {
 	}
 
 	@GetMapping(value = "/patients")
-	public String listePatients(Model model) {
+	public ResponseEntity<List<Patient>> listePatients() {
 		List<Patient> patients = patientService.getAllPatients();
 		if (patients.equals(null))
 			throw new ListPatientsNonTrouvableException(
 					"La liste de patients ne peut pas etre affichée car elle ne contient aucun patient.");
-		model.addAttribute("patients", patients);
-		return "patients";
+		return new ResponseEntity<>(patients, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/patient/{id}")
-	public Patient getPatientById(@PathVariable("id") Integer idPatient) {
+	public ResponseEntity<Patient> getPatientById(@PathVariable("id") Integer idPatient) {
 		Patient patient = patientService.getId(idPatient).get();
-		return patient;
+		return new ResponseEntity<>(patient, HttpStatus.OK);
 	}
 
-	@GetMapping("/addPatient")
-	public String showAjoutForm(Patient patient) {
-		return "addPatient";
-	}
-
-	@Transactional
 	@PostMapping("/addPatient")
-	public String addPatient(@Valid Patient patient, BindingResult result, Model model) {
-		if (result.hasErrors()) {
-			return "addPatient";
-		}
-		patientService.addOrUpdatePatient(patient);
-		return "redirect:/patients";
+	public ResponseEntity<Patient> addPatient(@Valid @RequestBody Patient patient) {
+		Patient newPatient= patientService.addOrUpdatePatient(patient);
+		return new ResponseEntity<>(newPatient, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/updatePatient/{id}")
-	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-		Patient patient = patientService.getId(id)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid patient Id:" + id));
-		model.addAttribute("patient", patient);
-		return "updatePatient";
-	}
 
-	@Transactional
-	@PostMapping("/updatePatient/{id}")
-	public String updatePatient(@PathVariable("id") Integer id, @Valid Patient patient, BindingResult result,
-			Model model) {
-		if (result.hasErrors()) {
-			return "updatePatient";
-		}
+	@PutMapping("/updatePatient/{id}")
+	public ResponseEntity<Patient> updatePatient(@PathVariable("id") Integer id, @Valid @RequestBody Patient patient) {
 		patient.setIdPatient(id);
-		patientService.addOrUpdatePatient(patient);
-		return "redirect:/patients";
+		Patient patientUpdated= patientService.addOrUpdatePatient(patient);
+		return new ResponseEntity<>(patientUpdated, HttpStatus.ACCEPTED);
 	}
 
 //	@DeleteMapping(value = "/patients/{id}")

@@ -2,12 +2,24 @@ package com.client.clientui.beans;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
+
+import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class PatientBean {
 
 	private Integer idPatient;
+	@NotBlank
 	private String nom;
+	@NotBlank
 	private String prenom;
+	@Past
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dateNaissance;
+	@Length(max = 1)
+	@NotBlank
 	private String genre;
 	private String adresse;
 	private String numeroTelephone;

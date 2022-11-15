@@ -1,4 +1,4 @@
-package com.client.clinique.abernathy.historiquePatient.beans;
+package com.client.clientui.beans;
 
 import java.util.List;
 
@@ -9,8 +9,6 @@ public class HistoriqueBean {
 	private Integer idPatient;
 
 	private String note;
-
-	private List<String> notes;
 
 	public String getId() {
 		return id;
@@ -34,14 +32,6 @@ public class HistoriqueBean {
 
 	public void setNote(String note) {
 		this.note = note;
-	}
-
-	public List<String> getNotes() {
-		return notes;
-	}
-
-	public void setNotes(List<String> notes) {
-		this.notes = notes;
 	}
 
 }

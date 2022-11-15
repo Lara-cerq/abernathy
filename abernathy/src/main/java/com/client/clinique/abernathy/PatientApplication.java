@@ -13,13 +13,13 @@ import com.client.clinique.abernathy.service.PatientService;
 
 @SpringBootApplication
 @EnableFeignClients
-public class AbernathyApplication  implements CommandLineRunner {
+public class PatientApplication  implements CommandLineRunner {
 	
 	@Autowired
 	PatientService patientService;
 
 	public static void main(String[] args) {
-		SpringApplication.run(AbernathyApplication.class, args);
+		SpringApplication.run(PatientApplication.class, args);
 	}
 
 //	@Override
