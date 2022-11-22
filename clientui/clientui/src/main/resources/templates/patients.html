@@ -28,6 +28,7 @@
 						<th>Numero de téléphone</th>
 						<th>Edit</th>
 						<th>Historique</th>
+						<th>Rapport Diabete</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -40,14 +41,16 @@
 						<td th:text="${patient.numeroTelephone}"></td>
 						<td><a
 							th:href="@{/updatePatient/{id}(id=${patient.idPatient})}">Edit</a></td>
-						<td><a th:href="@{/historique/{idPatient}(idPatient=${patient.idPatient})}">Voir historique de ce patient</a></td>
+						<td><a
+							th:href="@{/historique/{idPatient}(idPatient=${patient.idPatient})}">Voir
+								historique de ce patient</a></td>
+						<td><a
+							th:href="@{/rapport/{idPatient}(idPatient=${patient.idPatient})}">Voir le rapport de ce patient</a>
+						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-		<!-- 	<p>
-		<a href="/addPatient">Ajouter un nouveau patient</a>
-	</p> -->
 		<div class="row">
 			<div class="col-6"></div>
 			<div class="col-6 text-left">

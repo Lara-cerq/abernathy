@@ -1,6 +1,15 @@
 package com.client.clientui.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -21,6 +30,7 @@ import com.client.clientui.beans.HistoriqueBean;
 import com.client.clientui.beans.PatientBean;
 import com.client.clientui.proxies.MicroserviceHistoriqueProxy;
 import com.client.clientui.proxies.MicroservicePatientProxy;
+import com.client.clientui.proxies.MicroserviceRapportProxy;
 
 @Controller
 public class ClientController {
@@ -31,6 +41,9 @@ public class ClientController {
 	@Autowired
 	private MicroserviceHistoriqueProxy historiqueProxy;
 
+	@Autowired
+	private MicroserviceRapportProxy rapportProxy;
+
 	public ClientController(MicroservicePatientProxy patientProxy) {
 		this.patientProxy = patientProxy;
 	}
@@ -38,6 +51,11 @@ public class ClientController {
 	public ClientController(MicroserviceHistoriqueProxy historiqueProxy) {
 		super();
 		this.historiqueProxy = historiqueProxy;
+	}
+
+	public ClientController(MicroserviceRapportProxy rapportProxy) {
+		super();
+		this.rapportProxy = rapportProxy;
 	}
 
 	public ClientController() {
@@ -91,7 +109,7 @@ public class ClientController {
 	public String getHistoriquesByIdPatient(@PathVariable("idPatient") Integer idPatient, HistoriqueBean historique,
 			Model model) {
 		List<HistoriqueBean> historiques = historiqueProxy.getHistoriquesByIdPatient(idPatient);
-		PatientBean patient= patientProxy.getPatientById(idPatient);
+		PatientBean patient = patientProxy.getPatientById(idPatient);
 		model.addAttribute("historique", historique);
 		model.addAttribute("historiques", historiques);
 		model.addAttribute("patient", patient);
@@ -99,7 +117,8 @@ public class ClientController {
 	}
 
 	@GetMapping("/addNote/{idPatient}")
-	public String showAjoutForm(@PathVariable("idPatient") Integer idPatient,  @Valid HistoriqueBean historique, Model model) {
+	public String showAjoutForm(@PathVariable("idPatient") Integer idPatient, @Valid HistoriqueBean historique,
+			Model model) {
 		historique.setIdPatient(idPatient);
 		model.addAttribute("idPatient", idPatient);
 		model.addAttribute("historique", historique);
@@ -107,16 +126,17 @@ public class ClientController {
 	}
 
 	@PostMapping("/addNote/{idPatient}")
-	public String addNote(@PathVariable("idPatient") Integer idPatient, @Valid HistoriqueBean historique, BindingResult result, Model model) {
+	public String addNote(@PathVariable("idPatient") Integer idPatient, @Valid HistoriqueBean historique,
+			BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			return "addNote";
 		}
 		historique.setIdPatient(idPatient);
-		historiqueProxy.addOrUpdateHistorique(idPatient,historique);
+		historiqueProxy.addOrUpdateHistorique(idPatient, historique);
 		model.addAttribute("historique", historique);
 		return "redirect:/historique/" + historique.getIdPatient();
 	}
-	
+
 	@GetMapping("/updateHistorique/{id}")
 	public String showUpdateForm(@PathVariable("id") String id, Model model) {
 		HistoriqueBean historique = historiqueProxy.getHistoriqueById(id);
@@ -132,10 +152,20 @@ public class ClientController {
 		}
 		historique.setId(id);
 		historique.setIdPatient(historique.getIdPatient());
-		
-		historiqueProxy.addOrUpdateHistorique(historique.getIdPatient(),historique);
+
+		historiqueProxy.addOrUpdateHistorique(historique.getIdPatient(), historique);
 		model.addAttribute("historique", historique);
 		return "redirect:/historique/" + historique.getIdPatient();
+	}
+
+	@GetMapping("/rapport/{idPatient}")
+	public String generationRapportDiabete(@ModelAttribute("resultat") String resultat,
+			@PathVariable("idPatient") Integer idPatient, Model model) {
+		resultat = rapportProxy.generationRapportDiabete(idPatient);
+		PatientBean patient = patientProxy.getPatientById(idPatient);
+		model.addAttribute("resultat", resultat);
+		model.addAttribute("patient", patient);
+		return "rapport";
 	}
 
 }

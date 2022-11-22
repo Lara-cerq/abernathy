@@ -1,5 +1,6 @@
 package com.client.clinique.abernathy.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -37,7 +38,7 @@ public class Patient {
 	@Column(name = "dateNaissance")
 	@Past
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date dateNaissance;
+	private LocalDate dateNaissance;
 
 	@Column(name = "genre")
 	@Length(max = 1)
@@ -74,11 +75,11 @@ public class Patient {
 		this.prenom = prenom;
 	}
 
-	public Date getDateNaissance() {
+	public LocalDate getDateNaissance() {
 		return dateNaissance;
 	}
 
-	public void setDateNaissance(Date dateNaissance) {
+	public void setDateNaissance(LocalDate dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
 
@@ -111,9 +112,8 @@ public class Patient {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Patient(Integer idPatient, @NotNull String nom, @NotNull String prenom, @Past Date dateNaissance,
-			@Length(max = 1) String genre, @NotNull String adresse,
-			String numeroTelephone) {
+	public Patient(Integer idPatient, @NotBlank String nom, @NotBlank String prenom, @Past LocalDate dateNaissance,
+			@Length(max = 1) @NotBlank String genre, String adresse, String numeroTelephone) {
 		super();
 		this.idPatient = idPatient;
 		this.nom = nom;
@@ -124,8 +124,8 @@ public class Patient {
 		this.numeroTelephone = numeroTelephone;
 	}
 
-	public Patient(@NotNull String nom, @NotNull String prenom, @Past Date dateNaissance, @Length(max = 1) String genre,
-			@NotNull String adresse, String numeroTelephone) {
+	public Patient(@NotBlank String nom, @NotBlank String prenom, @Past LocalDate dateNaissance,
+			@Length(max = 1) @NotBlank String genre, String adresse, String numeroTelephone) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;

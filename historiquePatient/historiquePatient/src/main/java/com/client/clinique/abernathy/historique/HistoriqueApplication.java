@@ -15,19 +15,21 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 import com.client.clinique.abernathy.historique.model.Historique;
 import com.client.clinique.abernathy.historique.repository.HistoriqueRepository;
+import com.client.clinique.abernathy.historique.service.HistoriqueService;
 import com.mongodb.client.MongoClient;
 
 @SpringBootApplication
 @EnableMongoRepositories(basePackageClasses = HistoriqueRepository.class)
 @EnableFeignClients
 public class HistoriqueApplication implements CommandLineRunner {
-	
+
 	private final Logger logger = LoggerFactory.getLogger(HistoriqueApplication.class);
 
-	private HistoriqueRepository historiqueRepository;
+	private HistoriqueService historiqueService;
 
-	public HistoriqueApplication(HistoriqueRepository historiqueRepository) {
-		this.historiqueRepository = historiqueRepository;
+	public HistoriqueApplication(HistoriqueService historiqueService) {
+		super();
+		this.historiqueService = historiqueService;
 	}
 
 	public static void main(String[] args) {
@@ -36,31 +38,49 @@ public class HistoriqueApplication implements CommandLineRunner {
 
 //	@Override
 	public void run(String... args) throws Exception {
-        Historique historique= new Historique();
-        historique.setNote("Lara");
-        historique.setIdPatient(1);
+		Historique historique = new Historique(1,
+				"Poids");
+		Historique historique2 = new Historique(1,
+				"fatigue. Tests de laboratoire indiquant une microalbumine élevée");
+		Historique historique3 = new Historique(1,
+				" Fumeur. Tests de laboratoire indiquant que les anticorps sont élevés");
+		Historique historique4 = new Historique(2, "stress "
+				+ "Il se plaint également que son audition est anormal dernièrement");
+		Historique historique5 = new Historique(2,
+				"Le patient déclare avoir fait une réaction aux médicaments au cours des 3 derniers mois");
+		Historique historique6 = new Historique(2, "Tests de laboratoire indiquant une microalbumine élevée");
+		Historique historique7 = new Historique(2, "Le patient déclare que tout semble aller bien");
+		Historique historique8 = new Historique(3, "Le patient déclare qu'il fume depuis peu");
+		Historique historique9 = new Historique(3, "Tests de laboratoire indiquant une microalbumine élevée");
+		Historique historique10 = new Historique(3,
+				"\n" + "Il se plaint également de crises d’apnée respiratoire anormales\n"
+						+ "Tests de laboratoire indiquant un taux de cholestérol LDL élevé\n");
+		Historique historique11 = new Historique(3, "Tests de laboratoire indiquant un taux de cholestérol LDL élevé");
+		Historique historique12 = new Historique(4,
+				"Le patient déclare qu'il lui est devenu difficile de monter les escaliers\n"
+						+ "Il se plaint également d’être essoufflé\n"
+						+ "Tests de laboratoire indiquant que les anticorps sont élevés\n"
+						+ "Réaction aux médicaments\n");
+		Historique historique13 = new Historique(4,
+				"Le patient déclare qu'il a mal au dos lorsqu'il reste assis pendant longtemps");
+		Historique historique14 = new Historique(4, "Le patient déclare avoir commencé à fumer depuis peu\n"
+				+ "Hémoglobine A1C supérieure au niveau recommandé\"");
 
-        historiqueRepository.insert(historique);
-        
-        List<Historique> historiques = historiqueRepository.findAll();
-//        historiques.stream().forEach((historiqueNew) -> logger.info(historiqueNew.toString()));
-        
-        Example<Historique> example = Example.of(historique);
-
-        // Getting the searched Post
-        historique = historiqueRepository.findOne(example).get();
-
-        // Building a new name and updating the object Post
-        String newNote = historique.getNote() + " [updated]";
-        historique.setNote(newNote);
-
-        // Saving this change in database
-        historiqueRepository.save(historique);
-        
-        historiques.stream().forEach((historiqueNew) -> logger.info(historiqueNew.toString()));
-        
-//        historiqueRepository.deleteAll();
-
+		// Saving this change in database
+		historiqueService.saveOrUpdateHistorique(1, historique);
+		historiqueService.saveOrUpdateHistorique(1, historique2);
+		historiqueService.saveOrUpdateHistorique(1, historique3);
+		historiqueService.saveOrUpdateHistorique(1, historique4);
+		historiqueService.saveOrUpdateHistorique(1, historique5);
+		historiqueService.saveOrUpdateHistorique(1, historique6);
+		historiqueService.saveOrUpdateHistorique(1, historique7);
+		historiqueService.saveOrUpdateHistorique(1, historique8);
+		historiqueService.saveOrUpdateHistorique(1, historique9);
+		historiqueService.saveOrUpdateHistorique(1, historique10);
+		historiqueService.saveOrUpdateHistorique(1, historique11);
+		historiqueService.saveOrUpdateHistorique(1, historique12);
+		historiqueService.saveOrUpdateHistorique(1, historique13);
+		historiqueService.saveOrUpdateHistorique(1, historique14);
 	}
 
 }

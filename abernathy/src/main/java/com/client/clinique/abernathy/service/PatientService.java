@@ -27,7 +27,7 @@ public class PatientService {
 		try {
 			patients = patientRepository.findAll();
 		} catch (DataAccessException e) {
-			System.out.println("La liste de patiensts est vide");
+			System.out.println("La liste de patients est vide");
 		}
 		return patients;
 	}

@@ -1,5 +1,6 @@
 package com.client.clientui.beans;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
@@ -17,7 +18,7 @@ public class PatientBean {
 	private String prenom;
 	@Past
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date dateNaissance;
+	private LocalDate dateNaissance;
 	@Length(max = 1)
 	@NotBlank
 	private String genre;
@@ -48,11 +49,11 @@ public class PatientBean {
 		this.prenom = prenom;
 	}
 
-	public Date getDateNaissance() {
+	public LocalDate getDateNaissance() {
 		return dateNaissance;
 	}
 
-	public void setDateNaissance(Date dateNaissance) {
+	public void setDateNaissance(LocalDate dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
 
