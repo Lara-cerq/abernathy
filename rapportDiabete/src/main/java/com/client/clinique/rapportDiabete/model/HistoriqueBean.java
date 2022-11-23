@@ -1,7 +1,5 @@
 package com.client.clinique.rapportDiabete.model;
 
-import java.util.List;
-
 public class HistoriqueBean {
 
 	private String id;

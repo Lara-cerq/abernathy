@@ -13,26 +13,21 @@
 	<div class="container">
 		<h2>Rapport diabete</h2>
 		<div class="row">
-			 <b> Nom: </b>
-				<span th:text="${patient.nom}"></span>
-				<br>
-			<b> Prenom: </b> 
-				<span th:text="${patient.prenom}"></span>
-				<br>
-			<b> Date de naissance:</b> 
-				<span th:text="${patient.dateNaissance}"></span>
-				<br>
-			<b> Genre: </b> 
-				<span th:text="${patient.genre}"></span>
-				<br>
-			<b> Adresse: </b>
-				<span th:text="${patient.adresse}"></span>
-				<br>
-			<b> Numero de telephone </b>  
-				<span th:text="${patient.numeroTelephone}"></span>
-				<br>
-			<b> Risque de diabete: </b> 
-				<span th:text="${resultat}"> </span>
+			<b> Nom: </b> <span th:text="${patient.nom}"></span> <br> <b>
+				Prenom: </b> <span th:text="${patient.prenom}"></span> <br> <b>
+				Date de naissance:</b> <span th:text="${patient.dateNaissance}"></span>
+			<br> <b> Genre: </b> <span th:text="${patient.genre}"></span> <br>
+			<b> Adresse: </b> <span th:text="${patient.adresse}"></span> <br>
+			<b> Numero de telephone </b> <span
+				th:text="${patient.numeroTelephone}"></span> <br> <b>
+				Risque de diabete: </b> <span th:text="${resultat}"> </span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-6">
+			<div class="col-6 text-left">
+				<a href="/patients">Retour à la liste des patients</a>
+			</div>
 		</div>
 	</div>
 </body>

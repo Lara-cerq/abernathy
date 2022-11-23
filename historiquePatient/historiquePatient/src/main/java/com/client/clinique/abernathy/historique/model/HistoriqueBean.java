@@ -1,7 +1,5 @@
 package com.client.clinique.abernathy.historique.model;
 
-import java.util.List;
-
 public class HistoriqueBean {
 
 	private String id;

@@ -1,7 +1,5 @@
 package com.client.clientui.beans;
 
-import java.util.List;
-
 public class HistoriqueBean {
 
 	private String id;

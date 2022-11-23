@@ -1,7 +1,6 @@
 package com.client.clinique.rapportDiabete.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;

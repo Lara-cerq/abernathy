@@ -1,7 +1,5 @@
 package com.client.clinique.abernathy.historique.model;
 
-import java.util.List;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -65,6 +63,5 @@ public class Historique {
 	public String toString() {
 		return "HistoriquePatient [id=" + id + ", idPatient=" + idPatient + ", note=" + note + "]";
 	}
-
 
 }

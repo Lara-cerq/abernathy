@@ -5,30 +5,37 @@
 <meta charset="utf-8" />
 <title>Clinique Abernathy</title>
 <link rel="stylesheet"
-	href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 
 </head>
 
-<body>
+<body class="text-center">
 
-	<div class="container">
-		<h1>Clinique Abernathy</h1>
-		<div class="row">
-			<h2>Liste des Patients</h2>
+	<div class="card">
+		<div class="card text-dark bg-white mb-3">
+			<div class="card-header">
+				<header>
+					<img src="logo.png" class="rounded float-left" alt="abernathy">
+					<h1 class="text-center">Clinique Abernathy</h1>
+				</header>
+			</div>
 		</div>
+	</div>
+	<div class="container">
+		<h2>Liste des Patients</h2>
 		<div class="row">
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th>Nom</th>
-						<th>Prenom</th>
-						<th>Date de Naissance</th>
-						<th>Genre</th>
-						<th>Adresse</th>
-						<th>Numero de téléphone</th>
-						<th>Edit</th>
-						<th>Historique</th>
-						<th>Rapport Diabete</th>
+			<table class="table table-striped">
+				<thead class="text-white">
+					<tr class="bg-success">
+						<th class="font-weight-normal">Nom</th>
+						<th class="font-weight-normal">Prenom</th>
+						<th class="font-weight-normal">Date de Naissance</th>
+						<th class="font-weight-normal">Genre</th>
+						<th class="font-weight-normal">Adresse</th>
+						<th class="font-weight-normal">Numero de téléphone</th>
+						<th class="font-weight-normal">Modifier</th>
+						<th class="font-weight-normal">Historique</th>
+						<th class="font-weight-normal">Rapport Diabete</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -40,13 +47,13 @@
 						<td th:text="${patient.adresse}"></td>
 						<td th:text="${patient.numeroTelephone}"></td>
 						<td><a
-							th:href="@{/updatePatient/{id}(id=${patient.idPatient})}">Edit</a></td>
+							th:href="@{/updatePatient/{id}(id=${patient.idPatient})}">Modifier</a></td>
 						<td><a
 							th:href="@{/historique/{idPatient}(idPatient=${patient.idPatient})}">Voir
 								historique de ce patient</a></td>
 						<td><a
-							th:href="@{/rapport/{idPatient}(idPatient=${patient.idPatient})}">Voir le rapport de ce patient</a>
-						</td>
+							th:href="@{/rapport/{idPatient}(idPatient=${patient.idPatient})}">Voir
+								le rapport de ce patient</a></td>
 					</tr>
 				</tbody>
 			</table>
@@ -57,7 +64,6 @@
 				<a href="/addPatient">Ajouter un nouveau patient</a>
 			</div>
 		</div>
-
 	</div>
 </body>
 

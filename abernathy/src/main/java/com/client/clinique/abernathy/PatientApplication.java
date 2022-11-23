@@ -1,7 +1,6 @@
 package com.client.clinique.abernathy;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -28,9 +27,9 @@ public class PatientApplication implements CommandLineRunner {
 		// TODO Auto-generated method stub
 		Patient patient1 = new Patient("Ferguson", "Lucas", LocalDate.of(1968, 06, 22), "M", "2 Warren Street",
 				"387-866-1399");
-		Patient patient2 = new Patient("Rees", "Pippa", LocalDate.of(1952, 11, 11), "F", "745 West Valley Farms Drive",
+		Patient patient2 = new Patient("Rees", "Pippa", LocalDate.of(1993, 11, 11), "F", "745 West Valley Farms Drive",
 				"387-866-1399");
-		Patient patient3 = new Patient("Arnold", "Edward", LocalDate.of(1952, 11, 11), "M",
+		Patient patient3 = new Patient("Arnold", "Edward", LocalDate.of(2004, 11, 11), "M",
 				"745 West Valley Farms Drive", "387-866-1399");
 		Patient patient4 = new Patient("Sharp", "Anthony", LocalDate.of(1946, 11, 26), "M",
 				"745 West Valley Farms Drive", "387-866-1399");

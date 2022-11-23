@@ -5,43 +5,45 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Clinique Abernathy</title>
 <link rel="stylesheet"
-	href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 
 </head>
 
-<body>
+<body class="text-center">
 	<div class="container">
 		<div class="row">
 			<div th:switch="${historiques}">
-				<!-- 	<h2 th:case="null">Pas encore d'informations disponibles!</h2> -->
 				<div th:case="*">
-					<div class="row">
-						<h2>Historique du patient</h2>
-					</div>
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th>Notes</th>
-								<!-- 								<th>Nom Patient</th> -->
-								<th>Edit</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="historique : ${historiques}">
-								<td th:text="${historique.note}"></td>
-								<!-- 								<td th:text="${patient.nom}"></td> -->
-								<td><a
-									th:href="@{/updateHistorique/{id}(id=${historique.id})}">Mise
-										à jour de l'historique</a></td>
-								<!-- 							</tr> -->
-						</tbody>
-					</table>
+					<h2>Historique du patient</h2>
 				</div>
-				<p>
-					<a
-						th:href="@{/addNote/{idPatient}(idPatient=${historique.idPatient})}">Ajouter
-						une nouvelle note</a>
-				</p>
+				<table class="table table-striped">
+					<thead class="text-white">
+						<tr class="bg-success">
+							<th class="font-weight-normal">Notes</th>
+							<!-- 								<th>Nom Patient</th> -->
+							<th class="font-weight-normal">Mise à jour</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="historique : ${historiques}">
+							<td th:text="${historique.note}"></td>
+							<td><a
+								th:href="@{/updateHistorique/{id}(id=${historique.id})}">Mettre
+									à jour</a></td>
+					</tbody>
+				</table>
+				<div class="row">
+					<div class="col-6">
+						<div>
+							<a
+								th:href="@{/addNote/{idPatient}(idPatient=${historique.idPatient})}">Ajouter
+								une nouvelle note</a>
+						</div>
+						<div>
+							<a href="/patients">Retour à la liste des patients</a>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

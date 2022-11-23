@@ -3,7 +3,6 @@ package com.client.clinique.abernathy.historique.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.aspectj.apache.bcel.generic.MULTIANEWARRAY;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -27,16 +26,6 @@ public class HistoriqueService {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-//	public List<Historique> getAllHistoriques() {
-//		List<Historique> historiques = new ArrayList<>();
-//		try {
-//			historiques = historiqueRepository.findAll();
-//		} catch (DataAccessException e) {
-//			System.out.println("Il n'existe pas encore d'historique pour aucun patient.");
-//		}
-//		return historiques;
-//	}
 
 	public Historique findHistoriqueById(String id) {
 		Historique historique = new Historique();

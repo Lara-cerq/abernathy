@@ -1,15 +1,6 @@
 package com.client.clientui.controller;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -17,14 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.client.clientui.beans.HistoriqueBean;
 import com.client.clientui.beans.PatientBean;
@@ -140,6 +127,7 @@ public class ClientController {
 	@GetMapping("/updateHistorique/{id}")
 	public String showUpdateForm(@PathVariable("id") String id, Model model) {
 		HistoriqueBean historique = historiqueProxy.getHistoriqueById(id);
+		historique.setIdPatient(historique.getIdPatient());
 		model.addAttribute("historique", historique);
 		return "updateHistorique";
 	}
@@ -154,6 +142,7 @@ public class ClientController {
 		historique.setIdPatient(historique.getIdPatient());
 
 		historiqueProxy.addOrUpdateHistorique(historique.getIdPatient(), historique);
+		model.addAttribute("idPatient", historique.getIdPatient());
 		model.addAttribute("historique", historique);
 		return "redirect:/historique/" + historique.getIdPatient();
 	}
