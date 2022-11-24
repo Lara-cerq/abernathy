@@ -28,13 +28,6 @@ public class HistoriqueController {
 		this.historiqueService = historiqueService;
 	}
 
-//	@GetMapping(value = "/historiques")
-//	public ResponseEntity<List<>> showHistorique() {
-//
-//		List<Historique> historiques = historiqueService.getAllHistoriques();
-//		return "historiques";
-//	}
-
 	@GetMapping(value = "/historiqueById/{id}")
 	public ResponseEntity<Historique> getHistoriqueById(@PathVariable("id") String id) {
 		Historique historique = historiqueService.findHistoriqueById(id);
