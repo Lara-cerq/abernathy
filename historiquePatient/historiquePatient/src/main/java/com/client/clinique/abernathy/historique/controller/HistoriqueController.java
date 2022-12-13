@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +20,6 @@ import com.client.clinique.abernathy.historique.service.HistoriqueService;
 @RestController
 public class HistoriqueController {
 
-	@Autowired
 	HistoriqueService historiqueService;
 
 	public HistoriqueController(HistoriqueService historiqueService) {
@@ -43,17 +41,12 @@ public class HistoriqueController {
 	}
 
 	@PutMapping("/updateNote/{id}")
-	public ResponseEntity<Historique> updatePatient(@PathVariable("id") String id,
+	public ResponseEntity<Historique> updateHistorique(@PathVariable("id") String id,
 			@Valid @RequestBody Historique historique) {
 		historique.setId(id);
 		Historique historiqueUpdated = historiqueService.saveOrUpdateHistorique(historique.getIdPatient(), historique);
 		return new ResponseEntity<>(historiqueUpdated, HttpStatus.ACCEPTED);
 	}
-
-//	@DeleteMapping(value = "/patients/{id}")
-//	public void supprimerHistorique(@PathVariable String id) {
-//		historiqueService.deleteHistorique(id);
-//	}
 
 	@GetMapping("/historique/{idPatient}")
 	public ResponseEntity<List<HistoriqueBean>> getHistoriqueByIdPatient(@PathVariable("idPatient") Integer idPatient,

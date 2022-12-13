@@ -35,30 +35,23 @@ public class PatientController {
 		return new ResponseEntity<>(patients, HttpStatus.OK);
 	}
 
+	@PostMapping("/addPatient")
+	public ResponseEntity<Patient> addPatient(@Valid @RequestBody Patient patient) {
+		Patient newPatient = patientService.addOrUpdatePatient(patient);
+		return new ResponseEntity<>(newPatient, HttpStatus.CREATED);
+	}
+
+	@PutMapping("/updatePatient/{id}")
+	public ResponseEntity<Patient> updatePatient(@PathVariable("id") Integer id, @Valid @RequestBody Patient patient) {
+		patient.setIdPatient(id);
+		Patient patientUpdated = patientService.addOrUpdatePatient(patient);
+		return new ResponseEntity<>(patientUpdated, HttpStatus.ACCEPTED);
+	}
+
 	@GetMapping(value = "/patient/{id}")
 	public ResponseEntity<Patient> getPatientById(@PathVariable("id") Integer idPatient) {
 		Patient patient = patientService.getId(idPatient).get();
 		return new ResponseEntity<>(patient, HttpStatus.OK);
 	}
-
-	@PostMapping("/addPatient")
-	public ResponseEntity<Patient> addPatient(@Valid @RequestBody Patient patient) {
-		Patient newPatient= patientService.addOrUpdatePatient(patient);
-		return new ResponseEntity<>(newPatient, HttpStatus.CREATED);
-	}
-
-
-	@PutMapping("/updatePatient/{id}")
-	public ResponseEntity<Patient> updatePatient(@PathVariable("id") Integer id, @Valid @RequestBody Patient patient) {
-		patient.setIdPatient(id);
-		Patient patientUpdated= patientService.addOrUpdatePatient(patient);
-		return new ResponseEntity<>(patientUpdated, HttpStatus.ACCEPTED);
-	}
-
-//	@DeleteMapping(value = "/patients/{id}")
-//	public ResponseEntity<Void> supprimerPatient(@PathVariable int id) {
-//		patientService.deletePatient(id);
-//		return new ResponseEntity<>(HttpStatus.OK);
-//	}
 
 }

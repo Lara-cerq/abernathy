@@ -47,7 +47,6 @@ public class ClientController {
 
 	public ClientController() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@GetMapping(value = "/patients")
@@ -70,7 +69,6 @@ public class ClientController {
 			return "addPatient";
 		}
 		patientProxy.addOrUpdatePatient(patient);
-//		model.addAttribute("patient", patient);
 		return "redirect:/patients";
 	}
 

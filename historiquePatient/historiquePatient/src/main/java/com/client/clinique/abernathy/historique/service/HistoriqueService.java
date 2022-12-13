@@ -3,7 +3,6 @@ package com.client.clinique.abernathy.historique.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,23 +14,17 @@ import com.client.clinique.abernathy.historique.repository.HistoriqueRepository;
 @Service
 public class HistoriqueService {
 
-	@Autowired
 	HistoriqueRepository historiqueRepository;
 
 	public HistoriqueService(HistoriqueRepository historiqueRepository) {
 		this.historiqueRepository = historiqueRepository;
 	}
 
-	public HistoriqueService() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
 	public Historique findHistoriqueById(String id) {
 		Historique historique = new Historique();
 		try {
 			historique = historiqueRepository.findById(id).get();
-		} catch (Exception e) {
+		} catch (DataAccessException e) {
 			System.out.println("Historique non trouvé!");
 		}
 		return historique;

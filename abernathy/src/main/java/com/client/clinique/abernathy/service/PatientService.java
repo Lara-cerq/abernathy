@@ -30,6 +30,17 @@ public class PatientService {
 		}
 		return patients;
 	}
+	
+	@Transactional
+	public Patient addOrUpdatePatient(Patient patient) {
+		Patient patientUpdated = new Patient();
+		try {
+			patientUpdated = patientRepository.save(patient);
+		} catch (DataAccessException e) {
+			System.out.println("Patient non modifié!");
+		}
+		return patientUpdated;
+	}
 
 	public Patient findById(Integer id) {
 		return patientRepository.getById(id);
@@ -45,16 +56,6 @@ public class PatientService {
 		return patient;
 	}
 
-	@Transactional
-	public Patient addOrUpdatePatient(Patient patient) {
-		Patient patientUpdated = new Patient();
-		try {
-			patientUpdated = patientRepository.save(patient);
-		} catch (DataAccessException e) {
-			System.out.println("Patient non modifié!");
-		}
-		return patientUpdated;
-	}
 
 	public void deletePatient(Integer id) {
 		try {
