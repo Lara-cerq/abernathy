@@ -8,8 +8,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.client.clinique.rapportDiabete.model.HistoriqueBean;
-import com.client.clinique.rapportDiabete.model.PatientBean;
+import com.client.clinique.rapportDiabete.model.HistoriqueDto;
+import com.client.clinique.rapportDiabete.model.PatientDto;
 import com.client.clinique.rapportDiabete.proxy.MicroserviceHistoriqueProxy;
 import com.client.clinique.rapportDiabete.proxy.MicroservicePatientProxy;
 
@@ -44,8 +44,8 @@ public class RapportService {
 	List<String> termesList = Arrays.asList(termesDeclencheurs);
 
 	public String generationRapportDiabete(Integer idPatient) {
-		List<HistoriqueBean> historiques = new ArrayList<>();
-		PatientBean patient = new PatientBean();
+		List<HistoriqueDto> historiques = new ArrayList<>();
+		PatientDto patient = new PatientDto();
 		String resultat = "";
 		try {
 			historiques = historiqueProxy.getHistoriquesByIdPatient(idPatient);
@@ -55,7 +55,7 @@ public class RapportService {
 			Calendar currentDate = Calendar.getInstance();
 			int age = currentDate.get(Calendar.YEAR) - dateBirth;
 			List<String> notes = new ArrayList<>();
-			for (HistoriqueBean historiqueCherche : historiques) {
+			for (HistoriqueDto historiqueCherche : historiques) {
 				String note = historiqueCherche.getNote();
 				notes.add(note);
 			}

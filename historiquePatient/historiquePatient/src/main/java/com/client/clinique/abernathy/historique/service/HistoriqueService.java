@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.client.clinique.abernathy.historique.model.Historique;
-import com.client.clinique.abernathy.historique.model.HistoriqueBean;
+import com.client.clinique.abernathy.historique.model.HistoriqueDto;
 import com.client.clinique.abernathy.historique.repository.HistoriqueRepository;
 
 @Service
@@ -40,36 +40,27 @@ public class HistoriqueService {
 		return historique;
 	}
 
-	public void deleteHistorique(String id) {
-		try {
-			historiqueRepository.deleteById(id);
-		} catch (DataAccessException e) {
-			System.out.println("Impossible de supprimer cet historique");
-		}
-	}
-
-	public List<HistoriqueBean> getHistoriquesByIdPatient(Integer idPatient) {
+	public List<HistoriqueDto> getHistoriquesByIdPatient(Integer idPatient) {
 		List<Historique> historiqueList = new ArrayList<>();
-		List<HistoriqueBean> beanList = new ArrayList<>();
+		List<HistoriqueDto> dtoList = new ArrayList<>();
 		try {
 			historiqueList = historiqueRepository.getHistoriquesByIdPatient(idPatient);
-			beanList = mapToHistorique(historiqueList);
+			dtoList = mapToHistorique(historiqueList);
 		} catch (DataAccessException e) {
 			System.out.println("Impossible de trouver un historique");
 		}
-		return beanList;
+		return dtoList;
 	}
 
-	public List<HistoriqueBean> mapToHistorique(List<Historique> historiqueList) {
-		List<HistoriqueBean> beanList = new ArrayList<>();
+	public List<HistoriqueDto> mapToHistorique(List<Historique> historiqueList) {
+		List<HistoriqueDto> dtoList = new ArrayList<>();
 		for (Historique historique : historiqueList) {
-			HistoriqueBean historiqueBean = new HistoriqueBean();
-			historiqueBean.setId(historique.getId());
-			historiqueBean.setIdPatient(historique.getIdPatient());
-			historiqueBean.setNote(historique.getNote());
-			beanList.add(historiqueBean);
+			HistoriqueDto historiqueDto = new HistoriqueDto();
+			historiqueDto.setId(historique.getId());
+			historiqueDto.setIdPatient(historique.getIdPatient());
+			historiqueDto.setNote(historique.getNote());
+			dtoList.add(historiqueDto);
 		}
-		return beanList;
-
+		return dtoList;
 	}
 }

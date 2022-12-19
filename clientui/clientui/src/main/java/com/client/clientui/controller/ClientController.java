@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.client.clientui.beans.HistoriqueBean;
-import com.client.clientui.beans.PatientBean;
+import com.client.clientui.dto.HistoriqueDto;
+import com.client.clientui.dto.PatientDto;
 import com.client.clientui.proxies.MicroserviceHistoriqueProxy;
 import com.client.clientui.proxies.MicroservicePatientProxy;
 import com.client.clientui.proxies.MicroserviceRapportProxy;
@@ -51,20 +51,20 @@ public class ClientController {
 
 	@GetMapping(value = "/patients")
 	public String listePatients(Model model) {
-		List<PatientBean> patients = patientProxy.listePatients();
+		List<PatientDto> patients = patientProxy.listePatients();
 		model.addAttribute("patients", patients);
 		return "patients";
 
 	}
 
 	@GetMapping("/addPatient")
-	public String showAjoutForm(PatientBean patient, Model model) {
+	public String showAjoutForm(PatientDto patient, Model model) {
 		model.addAttribute("patient", patient);
 		return "addPatient";
 	}
 
 	@PostMapping(value = "/addPatient")
-	public String addPatient(@Valid @ModelAttribute("patient") PatientBean patient, BindingResult result, Model model) {
+	public String addPatient(@Valid @ModelAttribute("patient") PatientDto patient, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			return "addPatient";
 		}
@@ -74,13 +74,13 @@ public class ClientController {
 
 	@GetMapping("/updatePatient/{id}")
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-		PatientBean patient = patientProxy.getPatientById(id);
+		PatientDto patient = patientProxy.getPatientById(id);
 		model.addAttribute("patient", patient);
 		return "updatePatient";
 	}
 
 	@PostMapping("/updatePatient/{id}")
-	public String updatePatient(@PathVariable("id") Integer id, @Valid PatientBean patient, BindingResult result,
+	public String updatePatient(@PathVariable("id") Integer id, @Valid PatientDto patient, BindingResult result,
 			Model model) {
 		if (result.hasErrors()) {
 			return "updatePatient";
@@ -91,10 +91,10 @@ public class ClientController {
 	}
 
 	@GetMapping(value = "/historique/{idPatient}")
-	public String getHistoriquesByIdPatient(@PathVariable("idPatient") Integer idPatient, HistoriqueBean historique,
+	public String getHistoriquesByIdPatient(@PathVariable("idPatient") Integer idPatient, HistoriqueDto historique,
 			Model model) {
-		List<HistoriqueBean> historiques = historiqueProxy.getHistoriquesByIdPatient(idPatient);
-		PatientBean patient = patientProxy.getPatientById(idPatient);
+		List<HistoriqueDto> historiques = historiqueProxy.getHistoriquesByIdPatient(idPatient);
+		PatientDto patient = patientProxy.getPatientById(idPatient);
 		model.addAttribute("historique", historique);
 		model.addAttribute("historiques", historiques);
 		model.addAttribute("patient", patient);
@@ -102,7 +102,7 @@ public class ClientController {
 	}
 
 	@GetMapping("/addNote/{idPatient}")
-	public String showAjoutForm(@PathVariable("idPatient") Integer idPatient, @Valid HistoriqueBean historique,
+	public String showAjoutForm(@PathVariable("idPatient") Integer idPatient, @Valid HistoriqueDto historique,
 			Model model) {
 		historique.setIdPatient(idPatient);
 		model.addAttribute("idPatient", idPatient);
@@ -111,7 +111,7 @@ public class ClientController {
 	}
 
 	@PostMapping("/addNote/{idPatient}")
-	public String addNote(@PathVariable("idPatient") Integer idPatient, @Valid HistoriqueBean historique,
+	public String addNote(@PathVariable("idPatient") Integer idPatient, @Valid HistoriqueDto historique,
 			BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			return "addNote";
@@ -124,14 +124,14 @@ public class ClientController {
 
 	@GetMapping("/updateHistorique/{id}")
 	public String showUpdateForm(@PathVariable("id") String id, Model model) {
-		HistoriqueBean historique = historiqueProxy.getHistoriqueById(id);
+		HistoriqueDto historique = historiqueProxy.getHistoriqueById(id);
 		historique.setIdPatient(historique.getIdPatient());
 		model.addAttribute("historique", historique);
 		return "updateHistorique";
 	}
 
 	@PostMapping("/updateHistorique/{id}")
-	public String updateHistorique(@PathVariable("id") String id, @Valid HistoriqueBean historique,
+	public String updateHistorique(@PathVariable("id") String id, @Valid HistoriqueDto historique,
 			BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			return "updateHistorique";
@@ -149,7 +149,7 @@ public class ClientController {
 	public String generationRapportDiabete(@ModelAttribute("resultat") String resultat,
 			@PathVariable("idPatient") Integer idPatient, Model model) {
 		resultat = rapportProxy.generationRapportDiabete(idPatient);
-		PatientBean patient = patientProxy.getPatientById(idPatient);
+		PatientDto patient = patientProxy.getPatientById(idPatient);
 		model.addAttribute("resultat", resultat);
 		model.addAttribute("patient", patient);
 		return "rapport";

@@ -1,6 +1,6 @@
 package com.client.clinique.rapportDiabete.model;
 
-public class HistoriqueBean {
+public class HistoriqueDto {
 
 	private String id;
 

@@ -11,9 +11,9 @@ networks:
     external: true
 
 services:
-  mediscreen-ui:
+  clientui:
     build: .
-    container_name: mediscreen-ui
+    container_name: clientui
     environment:
       HOST_MYSQL: patient
       HOST_MONGODB: notes

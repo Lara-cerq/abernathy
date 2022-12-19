@@ -1,6 +1,6 @@
-package com.client.clinique.abernathy.historique.model;
+package com.client.clientui.dto;
 
-public class HistoriqueBean {
+public class HistoriqueDto {
 
 	private String id;
 

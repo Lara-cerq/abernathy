@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.client.clinique.abernathy.historique.model.Historique;
-import com.client.clinique.abernathy.historique.model.HistoriqueBean;
+import com.client.clinique.abernathy.historique.model.HistoriqueDto;
 import com.client.clinique.abernathy.historique.service.HistoriqueService;
 
 @RestController
@@ -49,10 +49,10 @@ public class HistoriqueController {
 	}
 
 	@GetMapping("/historique/{idPatient}")
-	public ResponseEntity<List<HistoriqueBean>> getHistoriqueByIdPatient(@PathVariable("idPatient") Integer idPatient,
+	public ResponseEntity<List<HistoriqueDto>> getHistoriqueByIdPatient(@PathVariable("idPatient") Integer idPatient,
 			Historique historique) {
 		historique.setIdPatient(idPatient);
-		List<HistoriqueBean> historiqueList = historiqueService.getHistoriquesByIdPatient(idPatient);
+		List<HistoriqueDto> historiqueList = historiqueService.getHistoriquesByIdPatient(idPatient);
 		return new ResponseEntity<>(historiqueList, HttpStatus.OK);
 	}
 

@@ -1,4 +1,4 @@
-package com.client.clientui.beans;
+package com.client.clinique.rapportDiabete.model;
 
 import java.time.LocalDate;
 
@@ -8,7 +8,7 @@ import javax.validation.constraints.Past;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class PatientBean {
+public class PatientDto {
 
 	private Integer idPatient;
 	@NotBlank
