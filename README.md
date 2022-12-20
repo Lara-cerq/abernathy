@@ -1,22 +1,22 @@
 # Mediscreen
 
-#### Built With:
+### Built With:
 Java 1.8
 Spring Boot
 Maven
 Thymeleaf
 Bootstrap
 
-Usage
-The application serves a Front End UI using Thymeleaf and Bootstrap, which can be accessed via the following URLs:
-
-/ -> Home Page, welcome page with links to guide user through interface
-
-
 ### Installation
-Clone the repo
-git clone https://github.com/suracki/mediscreenapplication.git
-Set configuration variables in each microservice's application.properties as desired Some properties of note: /Mediscreen/ -> Patient Demographic Service
+
+#### Clone the repo
+git clone https://github.com/Lara-cerq/abernathy
+
+#### Add in microservice patient application.properties your username and password:
+spring.datasource.username=root
+
+spring.datasource.password=root
+
 #### Create docker networks :
 
 ```
@@ -31,3 +31,9 @@ Go in each folder and run :
 ```
 docker-compose up -d
 ```
+
+### Usage
+The application can be accessed via the following URL:
+
+http://localhost:8082/patients -> Welcome page with list of all patients, access to patient history and access to diabetes report for each patient.
+
