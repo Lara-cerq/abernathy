@@ -25,7 +25,7 @@ docker network create mongo
 
 #### Launch containers :
 
-Go in each folder and run :
+Go in each folder of each microservice and run :
 
 ```
 docker-compose up -d
