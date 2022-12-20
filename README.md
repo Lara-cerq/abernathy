@@ -1,11 +1,11 @@
 # Mediscreen
 
 ### Built With:
-Java 1.8
-Spring Boot
-Maven
-Thymeleaf
-Bootstrap
+Java 1.8  
+Spring Boot  
+Maven  
+Thymeleaf  
+Bootstrap  
 
 ### Installation
 
@@ -13,8 +13,7 @@ Bootstrap
 git clone https://github.com/Lara-cerq/abernathy
 
 #### Add in microservice patient application.properties your username and password:
-spring.datasource.username=root
-
+spring.datasource.username=root  
 spring.datasource.password=root
 
 #### Create docker networks :
